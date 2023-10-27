@@ -1,0 +1,66 @@
+Fall 2023 CIS 524 Project 2
+(Due Oct. 31)
+In this project you are asked to write an interpreter which uses the top-down recursive-descent
+method to parse and evaluate a very simple programming language. The tiny language's grammar
+is given below.
+The interpreter (parser_xxxxxxx.py where xxxxxxx is your CSU ID) should be written in Python
+with similar structures to the c++ version in the Blackboard. It takes one input file (sample.tiny)
+which is a text file consisting of the statements of the above grammar. The input file name
+sample.tiny is given from the command line. The interpreter parser_xxxxxxx.py reads the program
+file sample.tiny, checks the syntax and outputs the result if the program is legitimate; otherwise,
+the interpreter prints "Error".
+Below is a test example:
+Your program will output
+For another example,
+<prog> ::= <let-in-end> { <let-in-end> }
+<let-in-end> ::= let <decl-list> in <type> ( <expr> ) end ;
+<decl-list> ::= <decl> { <decl> }
+<decl> ::= id : <type> = <expr> ;
+<type> ::= int | real
+<expr> ::= <term> { + <term> | - <term> } |
+if <cond> then <expr> else <expr>
+<term> ::= <factor> { * <factor> | / <factor> }
+<factor> ::= ( <expr> ) | id | number | <type> ( id )
+<cond> ::= <oprnd> < <oprnd> |
+<oprnd> <= <oprnd> |
+<oprnd> > <oprnd> |
+<oprnd> >= <oprnd> |
+<oprnd> == <oprnd> |
+<oprnd> <> <oprnd>
+<oprnd> ::= id | intnum
+let x : int = 7 ;
+y : real = 3.0 ;
+in
+real ( ( real ( x ) + y ) * ( real ( x ) – y ) )
+end ;
+let x = 8 ; in ( x + y ) end ;
+40.0
+Error
+Your program should display
+Please issue “python3 parser_xxxxxxx.py sample.tiny” on the spirit machine (Python version
+3.8.10) to test your Python program before you turnin it. Please use “if __name__ == ‘__main__’:”
+in your code (read section 3.17 at https://google.github.io/styleguide/pyguide.html).
+Turning it in
+You must submit your program electronically by using the following command on the grail
+machine
+turnin -c cis524x -p proj2 parser_xxxxxxx.py
+Start on time and good luck. If you have any questions, send e-mail to
+s.palle86@vikes.csuohio.edu or w.xiong15@csuohio.edu.
+let x : int = 5 ;
+in
+int ( x + x * x )
+end ;
+let r : real = 10.0 ;
+pi : real = 3.1416 ;
+in
+real ( pi * r * r )
+end ;
+let a : int = 3 ;
+b : real = 0.5 ;
+c : real = b * b ;
+in
+real ( if a > 5 then b + 1.1 else c )
+end ;
+30
+314.16
+0.25
